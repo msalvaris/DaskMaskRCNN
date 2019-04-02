@@ -34,13 +34,14 @@ run:# Run docker locally for dev and control
 	           -p 8787:8787 \
 	           -d \
 	           -e PYTHONPATH=/workspace:$$PYTHONPATH \
-	           -it $(image_name)
+	           $(image_name) \
+	           tmux new -s work
 
 bash:
 	$(docker_exec) bash
 
 start-scheduler:
-	$(docker_exec) dask-scheduler
+	$(docker_exec) tmux neww -d -n scheduler dask-scheduler
 
 start-workers:
 	$(docker_exec) worker1 "CUDA_VISIBLE_DEVICES=0 dask-worker ${scheduler} --nprocs 1 --nthreads 1 --resources 'GPU=1'"

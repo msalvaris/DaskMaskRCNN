@@ -45,10 +45,22 @@ start-scheduler:
 									neww -d -n scheduler dask-scheduler
 
 start-workers:
-	$(docker_exec) worker1 "CUDA_VISIBLE_DEVICES=0 dask-worker ${scheduler} --nprocs 1 --nthreads 1 --resources 'GPU=1'"
+	docker exec -it -d  $(NAME) tmux \
+		neww -d -n worker1 "CUDA_VISIBLE_DEVICES=0 dask-worker ${scheduler} --nprocs 1 --nthreads 1 --resources 'GPU=1'" \; \
+		neww -d -n worker2 "CUDA_VISIBLE_DEVICES=1 dask-worker ${scheduler} --nprocs 1 --nthreads 1 --resources 'GPU=1'" \; \
+		neww -d -n worker3 "CUDA_VISIBLE_DEVICES=2 dask-worker ${scheduler} --nprocs 1 --nthreads 1 --resources 'GPU=1'" \; \
+		neww -d -n worker4 "CUDA_VISIBLE_DEVICES=3 dask-worker ${scheduler} --nprocs 1 --nthreads 1 --resources 'GPU=1'" \;
+
+stop-workers:
+	docker exec -it -d  $(NAME) tmux \
+		killw -t worker1 \; \
+		killw -t worker2 \; \
+		killw -t worker3 \; \
+		killw -t worker4 \;
+
 
 run-pipeline:
-	$(docker_exec) LOG_CONFIG=$(log_config) python ../maskrcnn/maskrcnn_local.py ${scheduler} ${model_dir} ${filepath} ${output_path}
+	docker exec -e LOG_CONFIG=$(log_config) -it $(NAME) python ../maskrcnn/maskrcnn_local.py ${scheduler} ${model_dir} ${filepath} ${output_path}
 
 stop:
 	docker stop $(NAME)

@@ -60,7 +60,7 @@ stop-workers:
 
 
 run-pipeline:
-	docker exec -e LOG_CONFIG=$(log_config) -it $(NAME) python ../maskrcnn/maskrcnn_local.py ${scheduler} ${model_dir} ${filepath} ${output_path}
+	docker exec -e LOG_CONFIG=$(log_config) -it $(NAME) python maskrcnn/maskrcnn_local.py ${scheduler} ${model_dir} ${filepath} ${output_path}
 
 stop:
 	docker stop $(NAME)

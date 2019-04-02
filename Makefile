@@ -15,7 +15,6 @@ NAME:=dask-maskrcnn # Name of running container
 image_name:=masalvar/dask-maskrcnn
 local_code_volume:=-v $(PWD):/workspace
 tag:=version_.001
-docker_exec:=docker exec -it $(NAME)
 scheduler:=127.0.0.1:8786
 log_config:=maskrcnn/logging.ini
 model_dir:=/maskrcnn-benchmark/configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml
@@ -42,7 +41,7 @@ run:# Run docker locally for dev and control
 	           -it $(image_name)
 
 bash:
-	$(docker_exec) bash
+	docker exec -it $(NAME) bash
 
 
 start-scheduler:

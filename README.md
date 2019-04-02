@@ -3,13 +3,17 @@ In this repository is a demo on how to use Dask with [MaskRCNN](https://github.c
 
 All needed commands are in the [Makefile](Makefile)
 
+<p align="center">
+  <img width="800" src="./images/maskrcnn.svg">
+</p>
+
 # Requirements
 Ubuntu PC/VM  
 Docker  
 [Nvidia runtime for Docker](https://github.com/NVIDIA/nvidia-container-runtime)  
 One or more GPUs  
 
-# Setup 
+# Getting Started 
 Before you do anything you will need to modify the [makefile](Makefile).
 * First edit **data_volume** and replace _/mnt/pipelines_ with a location on your computer where you will read the data from and write the data to. This will be mapped to _/data_ inside the container. 
 * Next edit **filepath**. This is the location as it appears inside the docker container. As it is set by default inside the makefile the location is _/data/people_. The location _people_ contains a number of files which will be processed by the model. _/data/people_ will actually match to _/mnt/pipelines/people_ outside the container. 

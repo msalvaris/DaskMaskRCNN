@@ -34,7 +34,7 @@ run:# Run docker locally for dev and control
 	           -p 8787:8787 \
 	           -d \
 	           -e PYTHONPATH=/workspace:$$PYTHONPATH \
-	           $(image_name) \
+	           -it $(image_name) \
 	           tmux new -s work
 
 bash:

@@ -15,7 +15,10 @@ data_volume=-v /mnt/pipelines:/data
 tag:=version_.001
 docker_exec:=docker exec -it $(NAME)
 scheduler:=127.0.0.1:8786
-LOG_CONFIG:=src/logging.ini
+log_config:=src/logging.ini
+model_dir:=/maskrcnn-benchmark/configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml
+filepath:=/data/people
+output_path:=/data/output
 
 help:
 	echo "$$PROJECT_HELP_MSG" | less
@@ -43,7 +46,7 @@ start-workers:
 	$(docker_exec) worker1 "CUDA_VISIBLE_DEVICES=0 dask-worker ${scheduler} --nprocs 1 --nthreads 1 --resources 'GPU=1'"
 
 run-pipeline:
-	$(docker_exec) LOG_CONFIG=$(LOG_CONFIG) python ../maskrcnn/maskrcnn_local.py ${scheduler} ${MODEL_DIR} ${FILEPATH} ${OUTPUT_PATH}
+	$(docker_exec) LOG_CONFIG=$(log_config) python ../maskrcnn/maskrcnn_local.py ${scheduler} ${model_dir} ${filepath} ${output_path}
 
 stop:
 	docker stop $(NAME)

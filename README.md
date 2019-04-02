@@ -11,9 +11,9 @@ One or more GPUs
 
 # Setup 
 Before you do anything you will need to modify the [makefile](Makefile).
-* First edit data_volume and replace /mnt/pipelines with a location on your computer where you will read the data from and write the data to. This will be mapped to /data inside the container. 
-* Next edit filepath. This is the location as it appears inside the docker container. As it is set by default inside the makefile the location is /data/people. People contains a number of files which will be processed by the model. /data/people will actually match to /mnt/pipelines/people outside the container. 
-* Finally edit output_path. This should be where there results will be written to
+* First edit **data_volume** and replace _/mnt/pipelines_ with a location on your computer where you will read the data from and write the data to. This will be mapped to _/data_ inside the container. 
+* Next edit **filepath**. This is the location as it appears inside the docker container. As it is set by default inside the makefile the location is _/data/people_. The location _people_ contains a number of files which will be processed by the model. _/data/people_ will actually match to _/mnt/pipelines/people_ outside the container. 
+* Finally edit **output_path**. This should be where there results will be written to.
 
 
 Then you must build the container in which we will execute everything.

@@ -1,6 +1,7 @@
-FROM nvidia/cuda:9.0-devel-ubuntu16.04
+ENV CUDA="9.0"
+ENV CUDNN="7"
 
-ENV CUDNN_VERSION=7.0.5.15-1+cuda9.0
+FROM nvidia/cuda:${CUDA}-cudnn${CUDNN}-devel-ubuntu16.04
 
 RUN echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
 
@@ -19,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends --allow-downgra
         libglib2.0-0 \
         libxext6 \
         libsm6 \
-        libxrender1 \
+        libxrender-dev \
         mercurial \
         subversion \
         locales \
@@ -56,13 +57,12 @@ RUN git clone https://github.com/cocodataset/cocoapi.git \
  && cd cocoapi/PythonAPI \
  && python setup.py build_ext install
 
-# install maskrcnn
+# install PyTorch Detection
+ARG FORCE_CUDA="1"
+ENV FORCE_CUDA=${FORCE_CUDA}
 RUN git clone https://github.com/facebookresearch/maskrcnn-benchmark.git \
  && cd maskrcnn-benchmark \
-# && git reset --hard 75523a75312a7c8a9a007f75375f6310b8d37ad9 \
- && sed -i -e 's/torch.cuda.is_available()/True/g' setup.py \
- && python setup.py build develop \
- && sed -i -e 's/True/torch.cuda.is_available()/g' setup.py
+ && python setup.py build develop
 
 COPY tmux.conf /root/.tmux.conf
 WORKDIR /workspace

@@ -40,7 +40,8 @@ bash:
 	$(docker_exec) bash
 
 start-scheduler:
-	docker exec -it -d $(NAME) tmux new -s dask -d && tmux neww -d -n scheduler dask-scheduler
+	docker exec -it -d $(NAME) tmux new -s dask -d
+	docker exec -it -d $(NAME) tmux neww -d -n scheduler dask-scheduler
 
 start-workers:
 	$(docker_exec) worker1 "CUDA_VISIBLE_DEVICES=0 dask-worker ${scheduler} --nprocs 1 --nthreads 1 --resources 'GPU=1'"

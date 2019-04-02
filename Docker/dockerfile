@@ -34,7 +34,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.12-Linux-x86
 
 SHELL ["/bin/bash", "-c"]
 
-COPY Docker/conda_requirements.txt .
+COPY conda_requirements.txt .
 RUN conda install --yes \
     -c conda-forge \
     -c pytorch \
@@ -42,7 +42,7 @@ RUN conda install --yes \
     --file conda_requirements.txt \
 	&& conda clean -tipsy
 
-COPY Docker/requirements.txt .
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # install pycocotools

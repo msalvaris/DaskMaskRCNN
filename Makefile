@@ -2,8 +2,11 @@ define PROJECT_HELP_MSG
 Usage:
     make help                   show this message
     make build                  build docker image
-    make push-dask				build and push images that will be used by Kubernetes and are reference in helm file
-
+    make run					run container
+    make start-scheduler		start Dask scheduler in the container
+    make start-workers			start Dask workers in the container
+    make run-pipeline			run maskrcnn model in Dask
+    make stop					stop the container and remove
 endef
 export PROJECT_HELP_MSG
 PWD:=$(shell pwd)
@@ -17,7 +20,7 @@ scheduler:=127.0.0.1:8786
 log_config:=maskrcnn/logging.ini
 model_dir:=/maskrcnn-benchmark/configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml
 
-# Modify these.
+# MODIFY THESE
 data_volume=-v /mnt/pipelines:/data
 filepath:=/data/people
 output_path:=/data/output

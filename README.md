@@ -6,7 +6,7 @@ All needed commands are in the [Makefile](Makefile)
 # Requirements
 Ubuntu PC/VM  
 Docker  
-Nvidia runtime for Docker  
+[Nvidia runtime for Docker](https://github.com/NVIDIA/nvidia-container-runtime)  
 One or more GPUs  
 
 # Setup 
@@ -52,8 +52,16 @@ You can then stop everything by simply running
 make stop
 ```
 
+# Extra Commands
+You can run bash in the container by running
+```bash
+make bash
+```
+
 # Notes
 This serves as a demo, performance is not optimal. The adding of annotations takes a long time and needs to be improved.
+
+By default this demo is set up to use 4 GPUs, make sure you edit the [makefile](Makefile) and adjust to your setup
 
 
 

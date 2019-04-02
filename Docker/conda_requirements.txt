@@ -10,3 +10,4 @@ torchvision
 cudatoolkit=9.0
 conda-build#
 opencv
+bokeh

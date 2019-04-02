@@ -34,13 +34,14 @@ run:# Run docker locally for dev and control
 	           -p 8787:8787 \
 	           -d \
 	           -e PYTHONPATH=/workspace:$$PYTHONPATH \
-	           -it $(image_name)
+	           -it $(image_name) \
+	           tmux new -s dask -d
 
 bash:
 	$(docker_exec) bash
 
 start-scheduler:
-	docker exec -it -d $(NAME) tmux new -s dask -d
+	#docker exec -it -d $(NAME) tmux new -s dask -d
 	docker exec -it -d $(NAME) tmux neww -d -n scheduler dask-scheduler
 
 start-workers:

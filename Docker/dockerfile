@@ -16,6 +16,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends --allow-downgra
         libcudnn7=${CUDNN_VERSION} \
         libjpeg-dev \
         libpng-dev \
+        libglib2.0-0 \
+        libxext6 \
+        libsm6 \
+        libxrender1 \
+        mercurial \
+        subversion \
         locales \
         software-properties-common \
         tmux \

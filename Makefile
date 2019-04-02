@@ -11,7 +11,7 @@ NAME:=dask-maskrcnn # Name of running container
 
 image_name:=masalvar/dask-maskrcnn
 local_code_volume:=-v $(PWD):/workspace
-data_volume=/mnt/daat
+data_volume=/mnt/pipelines
 tag:=version_.001
 docker_exec:=docker exec -it $(NAME)
 scheduler:=127.0.0.1:8786

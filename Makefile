@@ -15,7 +15,7 @@ data_volume=-v /mnt/pipelines:/data
 tag:=version_.001
 docker_exec:=docker exec -it $(NAME)
 scheduler:=127.0.0.1:8786
-log_config:=src/logging.ini
+log_config:=maskrcnn/logging.ini
 model_dir:=/maskrcnn-benchmark/configs/caffe2/e2e_mask_rcnn_R_50_FPN_1x_caffe2.yaml
 filepath:=/data/people
 output_path:=/data/output
@@ -60,7 +60,7 @@ stop-workers:
 
 
 run-pipeline:
-	docker exec -e LOG_CONFIG=$(log_config) -it $(NAME) python src/maskrcnn_local.py ${scheduler} ${model_dir} ${filepath} ${output_path}
+	docker exec -e LOG_CONFIG=$(log_config) -it $(NAME) python maskrcnn/maskrcnn_local.py ${scheduler} ${model_dir} ${filepath} ${output_path}
 
 stop:
 	docker stop $(NAME)
